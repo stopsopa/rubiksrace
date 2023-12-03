@@ -62,8 +62,6 @@ source ".env.sh"
 set -e
 set -x
 
-cleanup
-
 /bin/bash build.sh
 
 cat <<EE
