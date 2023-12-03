@@ -56,4 +56,6 @@ if [ "${EXPOSE_EXTRA_ENV_VARIABLES}" = "" ]; then
     exit 1
 fi
 
+node libs/preprocessor.js
+
 node node_modules/.bin/webpack
