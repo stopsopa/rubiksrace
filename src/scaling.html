@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        border: 1px solid black;
+        margin: 10px;
+        height: 100vh;
+      }
+      #resizableparent {
+        width: 80vw;
+        height: 80vh;
+        box-shadow: 0 0 10px 4px #c3c3e4;
+      }
+    </style>
+    <link rel="stylesheet" href="/dist/rubiks.bundle.css" />
+  </head>
+  <body>
+    rubiks race
+    <input type="range" id="width" min="1" max="100" step="1" value="40" />
+
+    <br />
+    <input type="range" id="height" min="1" max="100" step="1" value="40" />
+    <br />
+
+    <a href="https://race.instantapp.fr/">https://race.instantapp.fr/</a>
+    <div id="resizableparent">
+      <div class="rubiks">
+        <div class="top">
+          <div>
+            <div></div>
+          </div>
+        </div>
+        <div class="topstat"></div>
+        <div class="mid">
+          <div>
+            <div></div>
+          </div>
+        </div>
+        <div class="botstat"></div>
+        <div class="bot">
+          <div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/dist/rubiks.bundle.js"></script>
+    <script>
+      const log = console.log;
+      const w = document.querySelector("#width");
+      const h = document.querySelector("#height");
+
+      function range(element, event) {
+        function hc() {
+          event(parseInt(element.value, 10));
+        }
+        element.addEventListener("change", hc);
+        element.addEventListener("input", hc);
+        hc();
+      }
+
+      const resize = document.querySelector("#resizableparent");
+
+      const initw = parseInt(resize.offsetWidth, 10);
+      const inith = parseInt(resize.offsetHeight, 10);
+      log("initw", initw);
+      log("inith", inith);
+      range(w, (v) => {
+        const x = v / 50;
+        log("w", x);
+        resize.style.width = initw * x + "px";
+      });
+      range(h, (v) => {
+        const x = v / 50;
+        log("w", x);
+        resize.style.height = inith * x + "px";
+      });
+
+      window.instance = rubiks(document.querySelector(".rubiks"));
+
+      log("window.instance", window.instance);
+    </script>
+  </body>
+</html>

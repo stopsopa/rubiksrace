@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #box {
+        position: fixed;
+        display: flex;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border: 1px solid gray;
+        height: 200px;
+        width: 200px;
+      }
+      #box img {
+        max-height: 100%;
+        max-width: 100%;
+        left: 50%;
+        top: 50%;
+        align-self: center;
+      }
+    </style>
+  </head>
+  <body>
+    <button>load</button>
+    <div id="box">
+      <img src="" alt="" />
+    </div>
+    <script src="/build/preprocessed.js"></script>
+    <script src="/dist/giphy-test.bundle.js"></script>
+  </body>
+</html>
