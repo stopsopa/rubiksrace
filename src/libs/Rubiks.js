@@ -22,7 +22,47 @@ const th = thFactory("Rubiks.js");
 
 function Rubiks(parent, opt) {
   this.opt = {
-    // html: ``,
+    html: `<div class="top">
+    <div>
+      <div></div>
+    </div>
+  </div>
+  <div class="topstat">
+    <button>mode</button>
+  </div>
+  <div class="mid">
+    <div>
+      <div></div>
+    </div>
+  </div>
+  <div class="botstat">
+    <button data-function="options">⚙️</button>
+  </div>
+  <div class="bot">
+    <div>
+      <div></div>
+    </div>
+  </div>
+  <dialog data-function="options">
+    <div class="opt">
+      <label> <input type="radio" name="mode" value="single" tabindex="0" /> single player </label>
+      <br />
+      <label> <input type="radio" name="mode" value="double" tabindex="0" /> two players </label>
+      <br />
+      <label>Player 1: <input class="name" name="player1" /></label>
+      <br />
+      <label>Player 2: <input class="name" name="player2" /></label>
+    </div>
+    <div class="win">
+      <div class="image"></div>
+      <div class="text"></div>
+    </div>
+    <br />
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    <button data-function="close">close</button>
+    <button data-function="shuffle">shuffle</button>
+  </dialog>`,
     getImage: async (imagebox) => {
       imagebox.innerHTML = "";
       const img = document.createElement("img");
@@ -36,6 +76,8 @@ function Rubiks(parent, opt) {
 
   this.player1 = this.opt.stateGet("player1") || "";
   this.player2 = this.opt.stateGet("player2") || "";
+
+  parent.innerHTML = this.opt.html;
 
   this.parent = parent;
 
@@ -66,11 +108,13 @@ function Rubiks(parent, opt) {
 
   this.soundAction = new SoundsSet({
     "pop-pff": "https://stopsopa.github.io/sounds/click/pop-low.wav",
-    "pop-funny": "https://stopsopa.github.io/sounds/click/mixkit-electric-pop-2365.wav",
+    "pop-funny":
+      "https://stopsopa.github.io/sounds/click/mixkit-electric-pop-2365.wav",
     pop: "https://stopsopa.github.io/sounds/click/QKTA234-pop.mp3",
     "pop-high": "https://stopsopa.github.io/sounds/click/pop-high.wav",
     arcade1: "https://stopsopa.github.io/sounds/click/index.wav",
-    arcade2: "https://stopsopa.github.io/sounds/click/506288-SBsfi2-Simple_Arcade_Select_002.mp3",
+    arcade2:
+      "https://stopsopa.github.io/sounds/click/506288-SBsfi2-Simple_Arcade_Select_002.mp3",
     pruiii: "https://stopsopa.github.io/sounds/click/pruiii.wav",
   });
 
@@ -84,10 +128,12 @@ Rubiks.prototype.init = function () {
 
   this.parent.classList.add("rubiks");
 
-  this.modalOptions = new Modal(this.parent.querySelector(`dialog[data-function="options"]`));
+  this.modalOptions = new Modal(
+    this.parent.querySelector(`dialog[data-function="options"]`)
+  );
 
   const top = this.parent.querySelector(".top");
-  this.mt = new Matrix("top", top, this.rows);
+  this.mt = new Matrix("top", top, this.rows, false, () => this.checkPlayer2());
 
   const mid = this.parent.querySelector(".mid");
   this.mm = new Matrix("mid", mid, this.rows - 2, true);
@@ -108,14 +154,14 @@ Rubiks.prototype.init = function () {
   // keybindings
   {
     const event = (e) => {
-      log("e.key", e.key, typeof e.key, JSON.stringify({ a: e.key }));
+      // log("e.key", e.key, typeof e.key, JSON.stringify({ a: e.key }));
       switch (e.key) {
-        // case "1":
-        //   this.checkPlayer1(true);
-        //   break;
-        // case "2":
-        //   this.checkPlayer2(true);
-        //   break;
+        case "1":
+          this.checkPlayer1(true);
+          break;
+        case "2":
+          this.checkPlayer2(true);
+          break;
         // case "o":
         //   this.optionsOpen("opt");
         //   break;
@@ -206,7 +252,11 @@ Rubiks.prototype.init = function () {
     // in this case parent is <dialog> element, but can be really anything you like
     // it's done using event delegation
     const event = (e) => {
-      if (e.target.matches(`dialog[data-function="options"] button[data-function="close"]`)) {
+      if (
+        e.target.matches(
+          `dialog[data-function="options"] button[data-function="close"]`
+        )
+      ) {
         this.optionsClose();
       }
     };
@@ -220,7 +270,11 @@ Rubiks.prototype.init = function () {
     // in this case parent is <dialog> element, but can be really anything you like
     // it's done using event delegation
     const event = (e) => {
-      if (e.target.matches(`dialog[data-function="options"] button[data-function="shuffle"]`)) {
+      if (
+        e.target.matches(
+          `dialog[data-function="options"] button[data-function="shuffle"]`
+        )
+      ) {
         this.init();
         this.optionsClose();
       }
@@ -239,8 +293,14 @@ Rubiks.prototype.checkPlayer1 = function (force = false) {
 
     this.soundWin.randomPlay();
 
+    const text = this.parent.querySelector(
+      '[data-function="options"] .win .text'
+    );
+
     if (this.modeIsSingle()) {
+      text.innerHTML = "You win";
     } else {
+      text.innerHTML = `${this.player1} win`;
     }
   }
 };
@@ -253,29 +313,45 @@ Rubiks.prototype.checkPlayer2 = function (force = false) {
     this.confetti.down();
 
     this.soundWin.randomPlay();
+
+    const text = this.parent.querySelector(
+      '[data-function="options"] .win .text'
+    );
+
+    text.innerHTML = `${this.player2} win`;
   }
 };
 Rubiks.prototype.showDialogBlock = function (block) {
   const blocks = ["opt", "win"];
 
   if (!blocks.includes(block)) {
-    throw this.th(`showDialogBlock() block >${block}< is not on the list of available blocks >${blocks.join(",")}<`);
+    throw this.th(
+      `showDialogBlock() block >${block}< is not on the list of available blocks >${blocks.join(
+        ","
+      )}<`
+    );
   }
 
   blocks.forEach((b) => {
-    this.parent.querySelector(`.${b}`).style.display = b === block ? "block" : "none";
+    this.parent.querySelector(`.${b}`).style.display =
+      b === block ? "block" : "none";
   });
 
-  document.querySelector('[data-function="close"]').style.display = block === "opt" ? "block" : "none";
+  document.querySelector('[data-function="close"]').style.display =
+    block === "opt" ? "block" : "none";
 };
 
 Rubiks.prototype.optionsOpen = function (block) {
-  this.parent.querySelector("dialog").classList.remove("rubiks-race-canvas-180");
+  this.parent
+    .querySelector("dialog")
+    .classList.remove("rubiks-race-canvas-180");
 
   this.showDialogBlock(block);
 
   this.parent.querySelector(
-    `input[type="radio"][name="mode"][value="${this.modeIsSingle() ? "single" : "double"}"]`
+    `input[type="radio"][name="mode"][value="${
+      this.modeIsSingle() ? "single" : "double"
+    }"]`
   ).checked = true;
 
   // log(`this.parent.querySelector('[name="player1"]')`, this.player1);

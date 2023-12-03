@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
     <meta name="HandheldFriendly" content="true" />
 
     <title>Document</title>
@@ -19,49 +22,7 @@
   </head>
   <body>
     <div class="parent">
-      <div class="rubiks">
-        <div class="top">
-          <div>
-            <div></div>
-          </div>
-        </div>
-        <div class="topstat">
-          <button>mode</button>
-        </div>
-        <div class="mid">
-          <div>
-            <div></div>
-          </div>
-        </div>
-        <div class="botstat">
-          <button data-function="options">⚙️</button>
-        </div>
-        <div class="bot">
-          <div>
-            <div></div>
-          </div>
-        </div>
-        <dialog data-function="options">
-          <div class="opt">
-            <label> <input type="radio" name="mode" value="single" tabindex="0" /> single player </label>
-            <br />
-            <label> <input type="radio" name="mode" value="double" tabindex="0" /> two players </label>
-            <br />
-            <label>Player 1: <input class="name" name="player1" /></label>
-            <br />
-            <label>Player 2: <input class="name" name="player2" /></label>
-          </div>
-          <div class="win">
-            <div class="image"></div>
-            <div class="text"></div>
-          </div>
-          <br />
-          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-          <button data-function="close">close</button>
-          <button data-function="shuffle">shuffle</button>
-        </dialog>
-      </div>
+      <div class="rubiks"></div>
     </div>
     <script src="../build/preprocessed.js"></script>
     <script src="../dist/rubiks.bundle.js"></script>
