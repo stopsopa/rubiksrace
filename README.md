@@ -7,12 +7,21 @@ Game is designed for one player or for two players playing on the ipad on the op
 
 Modes can be changed by clicking "cog" emoji on the left side of the screen in the game.
 
-# rubiksrace
+# The Game
 
 https://stopsopa.github.io/rubiksrace/src/game.html
 
+# Idea
+
+Game was written in around two days on holiday, just because it annoyed me that I can only move one piece at a time not entire row in this version. https://race.instantapp.fr/
+
+And I wanted multiplayer for my children.
+
+I thought I can build it in reasonable amount of time and it worked as planned.
+
+
+# dev notes
 also using: https://github.com/stopsopa/sounds
-inspired by : https://race.instantapp.fr/
 
 tools:
 html dialog: https://blog.webdevsimplified.com/2023-04/html-dialog/
