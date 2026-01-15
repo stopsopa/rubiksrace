@@ -13,12 +13,11 @@ https://stopsopa.github.io/rubiksrace/src/game.html
 
 # Idea
 
-Game was written in around two days on holiday, just because it annoyed me that I can only move one piece at a time not entire row in this version. https://race.instantapp.fr/
+Game was written in around two days on holiday, just because it annoyed me that I can only move one piece at a time not entire row in this version: https://race.instantapp.fr/
 
 And I wanted multiplayer for my children.
 
 I thought I can build it in reasonable amount of time and it worked as planned.
-
 
 # dev notes
 also using: https://github.com/stopsopa/sounds
