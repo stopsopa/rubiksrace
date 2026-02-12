@@ -16,6 +16,11 @@ https://stopsopa.github.io/rubiksrace/src/game.html
 
 Game was written in around two days on holiday, just because it annoyed me that I can only move one piece at a time not entire row in this version: https://race.instantapp.fr/
 
+... basically in race.instantapp you can't do this:
+
+[rubix.webm](https://github.com/user-attachments/assets/95a2bd32-539d-4aa7-a986-fbd35280dd85)
+
+
 And I wanted multiplayer for my children.
 
 I thought I can build it in reasonable amount of time and it worked as planned.
